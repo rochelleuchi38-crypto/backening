@@ -1,6 +1,9 @@
 <?php
 // CORS headers for Vue frontend
-header('Access-Control-Allow-Origin: http://localhost:5173');
+// CORS headers for deployed Vue frontend
+$frontend_url = 'https://blogflow-z6xj.onrender.com'; // replace with your Render frontend URL
+
+header("Access-Control-Allow-Origin: $frontend_url");
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
