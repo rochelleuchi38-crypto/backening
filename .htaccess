@@ -17,6 +17,7 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /
 
     # Handle preflight requests
     RewriteCond %{REQUEST_METHOD} OPTIONS
