@@ -1,7 +1,18 @@
 <?php
-// Load CORS middleware
-require_once 'app/middleware/CorsMiddleware.php';
-new CorsMiddleware();
+// CORS headers
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400');    // cache for 1 day
+}
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-XSRF-TOKEN");
+    http_response_code(200);
+    exit();
+}
 
 define('PREVENT_DIRECT_ACCESS', TRUE);
 date_default_timezone_set('Asia/Manila');
