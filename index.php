@@ -31,6 +31,14 @@ if ($allowedOrigin) {
     header('Access-Control-Expose-Headers: Content-Type, Authorization, X-Requested-With, X-XSRF-TOKEN');
 }
 
+// Debugging: Log request details
+error_log("=== REQUEST DEBUG ===");
+error_log("Request Method: " . $_SERVER['REQUEST_METHOD']);
+error_log("Request URI: " . $_SERVER['REQUEST_URI']);
+error_log("Request Headers: " . json_encode(getallheaders(), JSON_PRETTY_PRINT));
+error_log("Request Body: " . file_get_contents('php://input'));
+error_log("====================");
+
 define('PREVENT_DIRECT_ACCESS', TRUE);
 date_default_timezone_set('Asia/Manila');
 /**
@@ -116,5 +124,9 @@ define('PUBLIC_DIR', $public_folder);
  * Setup done? Then Hurray!
  * ------------------------------------------------------
  */
+
+// Debugging: Print the current request URI
+error_log("Request URI: " . $_SERVER['REQUEST_URI']);
+
 require_once SYSTEM_DIR . 'kernel/LavaLust.php';
 ?>
