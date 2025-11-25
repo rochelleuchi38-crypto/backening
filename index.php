@@ -1,9 +1,10 @@
 <?php
 
-// Get the origin of the request
+// Enable CORS - Place this at the very top
 $allowedOrigins = [
     'https://blogflow-z6xj.onrender.com',
-    // Add other allowed origins if needed
+    'http://localhost:3000', // For local development
+    'http://127.0.0.1:3000'  // For local development
 ];
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
@@ -17,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
         header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-XSRF-TOKEN');
         header('Access-Control-Max-Age: 86400');
+        header('Content-Type: application/json');
     }
     http_response_code(200);
     exit();
@@ -26,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 if ($allowedOrigin) {
     header("Access-Control-Allow-Origin: $allowedOrigin");
     header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Expose-Headers: Content-Type, Authorization, X-Requested-With, X-XSRF-TOKEN');
 }
-
 
 define('PREVENT_DIRECT_ACCESS', TRUE);
 date_default_timezone_set('Asia/Manila');
