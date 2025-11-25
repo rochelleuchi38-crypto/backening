@@ -1,14 +1,33 @@
 <?php
 
+// Get the origin of the request
+$allowedOrigins = [
+    'https://blogflow-z6xj.onrender.com',
+    // Add other allowed origins if needed
+];
+
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$allowedOrigin = in_array($origin, $allowedOrigins) ? $origin : '';
+
 // Handle preflight requests
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-XSRF-TOKEN");
-    header("Access-Control-Allow-Credentials: true");
+    if ($allowedOrigin) {
+        header("Access-Control-Allow-Origin: $allowedOrigin");
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-XSRF-TOKEN');
+        header('Access-Control-Max-Age: 86400');
+    }
     http_response_code(200);
     exit();
 }
+
+// For actual requests
+if ($allowedOrigin) {
+    header("Access-Control-Allow-Origin: $allowedOrigin");
+    header('Access-Control-Allow-Credentials: true');
+}
+
 
 define('PREVENT_DIRECT_ACCESS', TRUE);
 date_default_timezone_set('Asia/Manila');

@@ -1,6 +1,6 @@
 <IfModule mod_headers.c>
-    # Allow from any origin
-    SetEnvIf Origin "^(.*\.?blogflow-z6xj\.render\.com|.*\.?blogflowback\.onrender\.com|localhost(:\d+)?|127\.0\.0\.1(:\d+)?)$" AccessControlAllowOrigin=$0
+    # Allow from specific origins
+    SetEnvIf Origin "^(https?://(?:.+\.)?blogflow-z6xj\.render\.com(:\d+)?)$" AccessControlAllowOrigin=$1
     Header set Access-Control-Allow-Origin %{AccessControlAllowOrigin}e env=AccessControlAllowOrigin
     Header set Access-Control-Allow-Credentials "true"
     Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
